@@ -1,0 +1,326 @@
+{
+  "info": {
+    "_postman_id": "b3e9442a-4318-4d57-9dbf-e58712a76201",
+    "name": "BangkokFarm Marketplace REST API (Soal 12)",
+    "description": "Koleksi Postman untuk pengujian Web Service / REST API Marketplace Peternakan Ayam Bangkok (Soal 12). Menggunakan PHP Native, MySQLi, dan JSON response.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost/web_penjualanAyam/api",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Produk",
+      "item": [
+        {
+          "name": "1. GET Semua Produk",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/produk.php",
+              "host": ["{{base_url}}"],
+              "path": ["produk.php"]
+            },
+            "description": "Mengambil seluruh daftar produk ayam, bibit DOC, dan pakan/jamu."
+          }
+        },
+        {
+          "name": "2. GET Detail Produk by ID (?id=1)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/produk.php?id=1",
+              "host": ["{{base_url}}"],
+              "path": ["produk.php"],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "1"
+                }
+              ]
+            },
+            "description": "Mengambil detail spesifik satu produk ayam berdasarkan ID."
+          }
+        },
+        {
+          "name": "3. GET Filter Produk by Kategori (?kategori=1)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/produk.php?kategori=1",
+              "host": ["{{base_url}}"],
+              "path": ["produk.php"],
+              "query": [
+                {
+                  "key": "kategori",
+                  "value": "1"
+                }
+              ]
+            },
+            "description": "Menyaring produk berdasarkan ID kategori (misal: 1 = Ayam Bangkok & Aduan)."
+          }
+        },
+        {
+          "name": "4. GET Cari Produk (?cari=bangkok)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/produk.php?cari=bangkok",
+              "host": ["{{base_url}}"],
+              "path": ["produk.php"],
+              "query": [
+                {
+                  "key": "cari",
+                  "value": "bangkok"
+                }
+              ]
+            },
+            "description": "Pencarian produk berdasarkan kata kunci nama atau deskripsi."
+          }
+        },
+        {
+          "name": "5. GET Produk ID Tidak Ditemukan (Test 404)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/produk.php?id=9999",
+              "host": ["{{base_url}}"],
+              "path": ["produk.php"],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "9999"
+                }
+              ]
+            },
+            "description": "Pengujian respon error 404 Not Found ketika ID produk tidak ada."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Kategori",
+      "item": [
+        {
+          "name": "1. GET Semua Kategori",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/kategori.php",
+              "host": ["{{base_url}}"],
+              "path": ["kategori.php"]
+            },
+            "description": "Mengambil seluruh daftar kategori ternak beserta total jumlah produk tiap kategori."
+          }
+        },
+        {
+          "name": "2. GET Detail Kategori by ID (?id=1)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/kategori.php?id=1",
+              "host": ["{{base_url}}"],
+              "path": ["kategori.php"],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "1"
+                }
+              ]
+            },
+            "description": "Mengambil satu data kategori berdasarkan ID."
+          }
+        },
+        {
+          "name": "3. Method Not Allowed (Test 405)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/kategori.php",
+              "host": ["{{base_url}}"],
+              "path": ["kategori.php"]
+            },
+            "description": "Pengujian respon error 405 Method Not Allowed saat mengirim POST ke endpoint kategori yang hanya menerima GET."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Pesanan / Checkout",
+      "item": [
+        {
+          "name": "1. POST Buat Pesanan Baru (201 Created)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id_user\": 2,\n  \"nama_penerima\": \"Budi Peternak\",\n  \"telepon\": \"081299887711\",\n  \"alamat_kirim\": \"Jl. Kenangan No. 10, Bandung (Ambil via KIB Stasiun Bandung Kota)\",\n  \"items\": [\n    {\n      \"id_produk\": 1,\n      \"qty\": 1\n    },\n    {\n      \"id_produk\": 10,\n      \"qty\": 2\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/pesanan.php",
+              "host": ["{{base_url}}"],
+              "path": ["pesanan.php"]
+            },
+            "description": "Membuat pesanan baru dan otomatis mengurangi stok produk secara transaksional."
+          }
+        },
+        {
+          "name": "2. POST Pesanan Validasi Gagal (Test 400 Bad Request)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id_user\": 2,\n  \"nama_penerima\": \"\",\n  \"telepon\": \"\",\n  \"alamat_kirim\": \"\",\n  \"items\": []\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/pesanan.php",
+              "host": ["{{base_url}}"],
+              "path": ["pesanan.php"]
+            },
+            "description": "Pengujian respon error 400 Bad Request saat field penting kosong."
+          }
+        },
+        {
+          "name": "3. POST Pesanan Stok Melebihi Batas (Test 400 Bad Request)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id_user\": 2,\n  \"nama_penerima\": \"Budi Peternak\",\n  \"telepon\": \"081299887711\",\n  \"alamat_kirim\": \"Jl. Kenangan No. 10, Bandung\",\n  \"items\": [\n    {\n      \"id_produk\": 1,\n      \"qty\": 9999\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/pesanan.php",
+              "host": ["{{base_url}}"],
+              "path": ["pesanan.php"]
+            },
+            "description": "Pengujian respon error 400 Bad Request saat kuantitas pesanan melebihi stok yang tersedia."
+          }
+        },
+        {
+          "name": "4. GET Daftar Pesanan (200 OK)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/pesanan.php",
+              "host": ["{{base_url}}"],
+              "path": ["pesanan.php"]
+            },
+            "description": "Melihat daftar seluruh pesanan yang masuk."
+          }
+        },
+        {
+          "name": "5. GET Detail Pesanan by ID (?id=1)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/pesanan.php?id=1",
+              "host": ["{{base_url}}"],
+              "path": ["pesanan.php"],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "1"
+                }
+              ]
+            },
+            "description": "Melihat rincian satu transaksi pesanan beserta item-itemnya."
+          }
+        }
+      ]
+    }
+  ]
+}
